@@ -1777,6 +1777,26 @@ def a_json_endpoint():
         }
     )
 
+@app.route("/test1", methods=("POST",))
+@app.route("/auth0/<string:text>", methods=("POST","GET"))
+def view_test1(text=None):
+    """The request's POST parameters.
+    ---
+    tags:
+      - HTTP Methods
+    produces:
+      - application/json
+    responses:
+      200:
+        description: The request's POST parameters.
+    """
+
+    app.logger.debug(json.dumps(
+        get_dict("url", "args", "form", "data", "origin", "headers", "files", "json")
+    , sort_keys=True, indent=4))
+    return jsonify(
+        get_dict("url", "args", "form", "data", "origin", "headers", "files", "json")
+    )
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

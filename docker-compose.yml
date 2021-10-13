@@ -1,6 +1,10 @@
-version: '2'
+version: '3'
 services:
     httpbin:
       build: '.'
+      image: abriko/httpbin
+      environment:
+        DEBUG: true
+        GUNICORN_CMD_ARGS: "--capture-output --error-logfile - --access-logfile - --access-logformat '%(h)s %(t)s %(r)s %(s)s Host: %({Host}i)s}'"
       ports:
-        - '80:80'
+        - '8080:80'
